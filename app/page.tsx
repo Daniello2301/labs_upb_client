@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import styles from "@/app/ui/home.module.css";
+import styles from "@/ui/home.module.css";
 import Link from "next/link";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
       <div
         className={`${styles.divmain} relative rounded-lg grid md:grid-cols-2 sm:grid-cols-1`}
       >
-          <span className="absolute w-10/12 h-[0.5px] bg-[#354E95]/[.5] md:top-20 md:left-16"></span>
+          <span className="absolute w-10/12 h-[0.5px] bg-blue-300/[.5] md:top-20 md:left-16"></span>
           <span className="absolute h-5/6 w-[0.5px] bg-[#354E95]/[.5] md:top-10 md:left-24"></span>
         <section className="flex flex-col justify-center items-center ml-24 gap-4">
           <h2 className="text-5xl text-wrap w-[400px] font-medium text-[#354E95] text-left">Laboratorios de Energía Y TIC</h2>

@@ -2,9 +2,9 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -17,6 +17,13 @@ const config: Config = {
         "100%":"100%",
         "80%":"80%",
       },
+      colors: {
+        "blue-100": "#F5F6FB",
+        "blue-200": "#DDE4F0",
+        "blue-300": "#354E95",
+        "blue-400": "#787F89",
+        "blue-500": "#FBFCFE",
+      }
     },
   },
   plugins: [],
