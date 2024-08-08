@@ -8,7 +8,7 @@ export default function Home() {
 
 
   return (
-    <main className="flex h-screen flex-col items-center justify-center p-24 bg-[#354E95]/[.3]">
+    <main className="flex h-screen flex-col items-center justify-center p-24 bg-[#354E95]/[.2]">
       <div
         className={`${styles.divmain} relative rounded-lg grid md:grid-cols-2 sm:grid-cols-1`}
       >

@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }) {
     return (
       <>
-        <div className="relative flex min-h-screen">
+        <div className="relative flex min-h-screen h-screen">
           <SideNav />
           <main className="  flex-grow p-6">
           <span className="absolute w-5/6 h-[0.5px] bg-[#354E95]/[.2] top-20" />

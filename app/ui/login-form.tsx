@@ -5,14 +5,14 @@ import Link from "next/link";
 export default function Form() {
 
   return (
-      <form className="w-full flex justify-center items-center">
-      <div className="w-4/5 gap-5 flex flex-col items-center">
-        <h1 className={`mb-3 text-xl text-center text-[#354E95] font-medium`}>Iniciar Sesion</h1>
+      <form className="w-3/4 p-10 flex justify-center items-center">
+      <div className="w-4/5 gap-6 flex flex-col items-center">
+        <h1 className={`mb-3 text-xl text-center text-[#354E95] font-medium `}>Iniciar Sesion</h1>
         <div className="w-full">
           <div>
-            <div className="relative ">
+            <div className="relative my-5">
               <input
-                className="peer block w-full rounded-md  py-[9px] pl-10 text-sm outline-0 bg-[#F5F6FB] placeholder:text-gray-500/40"
+                className="peer block rounded-md w-full  py-[9px] pl-10 text-sm outline-0 bg-[#F5F6FB] placeholder:text-gray-500/40"
                 id="id"
                 type="string"
                 name="id"
@@ -22,7 +22,7 @@ export default function Form() {
             </div>
           </div>
           <div className="mt-4">
-            <div className="relative">
+            <div className="relative my-5">
               <input
                 className="peer block w-full rounded-md py-[9px] pl-10 text-sm outline-0 bg-[#F5F6FB] placeholder:text-gray-500/40"
                 id="password"
@@ -35,7 +35,7 @@ export default function Form() {
             </div>
           </div>
         </div>
-        <Button className="mt-4 h-[32px] w-[100px] text-sm" >
+        <Button className="mt-4 h-[40px] w-[160px] text-sm" >
           <Link href="/dashboard">Iniciar Sesion</Link>
         </Button>
       </div>
