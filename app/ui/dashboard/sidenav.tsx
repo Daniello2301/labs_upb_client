@@ -8,7 +8,7 @@ export default function SideNav() {
     <nav className="sticky flex min-h-full flex-col min-w-[240px] bg-[#F1F2F7] text-blue-300/[.70] py-4 px-2">
       <Link
         className="mb-2 flex items-end justify-start p-4"
-        href="/">
+        href="/dashboard">
             <div className="w-32 text-white md:w-40">{/* <AcmeLogo /> */}
                 <UPBLogo />
             </div>

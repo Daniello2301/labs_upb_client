@@ -10,8 +10,6 @@ export default async function TableActivos({
 }) {
   const activos = await fetchFilteredActivos(query, currentPage);
 
-  console.log(activos);
-
   return (
     <>
       <div className="mt-6">

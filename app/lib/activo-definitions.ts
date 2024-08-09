@@ -29,6 +29,7 @@ export type ActivosTable = {
     estado: boolean;
     aula: number;
     bloque: number;
+    [error: string]: any;
 }
 
 export type ActivoForm = {
@@ -39,4 +40,26 @@ export type ActivoForm = {
     tipo: string;
     aula: number;
     bloque: number;
+}
+
+export type ActivoDataPage = {
+    content?: Activo[];
+    pageable?: {
+        pageNumber: number;
+        pageSize: number;
+        offset: number;
+        paged: boolean;
+        unpaged: boolean;
+    };
+    totalPages?: number;
+    totalElements?: number;
+    last?: boolean;
+    size?: number;
+    number?: number;
+    sort?: {
+        sorted: boolean;
+        unsorted: boolean;
+        empty: boolean;
+    };
+    first?: boolean;
 }

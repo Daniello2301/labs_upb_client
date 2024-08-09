@@ -4,7 +4,7 @@ import { axiosInstance } from "./axios";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { ActivosTable } from "@/lib/definitions";
+import { ActivoDataPage, ActivosTable } from "@/lib/activo-definitions";
 
 
 const ActivoSchema = z.object({
@@ -47,36 +47,42 @@ export type State = {
     message?: string | null;
 }
 
-const ITEMS_PER_PAGE = 7;
-export async function fetchFilteredActivos(query: string, currentPage: number): Promise<ActivosTable[]> {
+export type errorResponse = {
+    error?: string;
+    message?: string;
+    response?: string;
+}
 
-    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+const ITEMS_PER_PAGE = 6;
+export async function fetchFilteredActivos(query: string, currentPage: number){
+
+    const offset = (currentPage - 1);
 
     try {
-        const{ data } = await axiosInstance.get(`/activos/enable/${currentPage}/${ITEMS_PER_PAGE}/${query}`);
+        const{ data } = await axiosInstance.get<ActivoDataPage>(`/activos/enable/prestamos?query=${query}&page=${offset}&sizePage=${ITEMS_PER_PAGE}`);
+
+        return data?.content as ActivosTable[];
         
-        return data?.Items;
-        
-    } catch (error) {
-        console.log(error);
-        throw new Error("Error al obtener los activos");
+    } catch (error : any) { 
+        console.log(error?.response?.data.message)
+        if(error){
+            return [];
+        }
     }
 }
 
-export async function fetchActivosCount(query: string) {
+export async function fetchActivosCount(query: string){
     try {
-        const{ data } = await axiosInstance.get(`/activos/enable/0/${ITEMS_PER_PAGE}/${query}`);
+        const{ data } = await axiosInstance.get<any>(`/activos/enable/prestamos?query=${query}&page=&sizePage=${ITEMS_PER_PAGE}`);
         
-       /*  console.log(data) */
-
-        const totalPages = parseInt(data?.totalPages);
-
-        /* console.log("pages", totalPages); */
-
+        const totalPages = data.totalPages;
+ 
         return totalPages;
 
-    } catch (error) {
-        console.log(error);
-        throw new Error("Error al obtener los activos 2");
+    } catch (error : any) {
+        console.log(error?.response?.data.message)
+        if(error){
+            return 0;
+        }
     }
 }

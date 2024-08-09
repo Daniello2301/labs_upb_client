@@ -17,10 +17,12 @@ export default async function Page({
     page?: string;
   };
 }) {
-  const query = searchParams?.query || "numero_inventario";
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
   const totalPages = await fetchActivosCount(query);
+
+  console.log(totalPages)
 
   return (
     <>
