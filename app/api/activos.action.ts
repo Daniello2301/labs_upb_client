@@ -1,6 +1,6 @@
 "use server"
 
-import { axiosInstance } from "./axios";
+import { axiosInstance } from "../api/axios";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";

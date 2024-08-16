@@ -1,4 +1,5 @@
-import { fetchFilteredActivos } from "@/lib/activos.action";
+
+import { fetchFilteredActivos } from "@/api/activos.action";
 import React, { act } from "react";
 
 export default async function TableActivos({

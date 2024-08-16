@@ -28,7 +28,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
     <>
       {/*  NOTE: Uncomment this code in Chapter 11 */}
 
-      <div className="inline-flex">
+      <div className="inline-flex bg-[#F1F2F7] p-2 rounded-md">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
@@ -83,8 +83,8 @@ function PaginationNumber({
     {
       'rounded-l-md': position === 'first' || position === 'single',
       'rounded-r-md': position === 'last' || position === 'single',
-      'z-10 bg-blue-600 border-blue-600 text-white': isActive,
-      'hover:bg-gray-100': !isActive && position !== 'middle',
+      'z-10 bg-blue-300 border-blue-300 text-white': isActive,
+      'hover:bg-gray-200': !isActive && position !== 'middle',
       'text-gray-300': position === 'middle',
     },
   );
@@ -108,18 +108,18 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    'flex h-10 w-10 items-center justify-center rounded-md border',
+    'flex h-10 w-10 items-center justify-center rounded-md border text-blue-300',
     {
       'pointer-events-none text-gray-300': isDisabled,
       'hover:bg-gray-100': !isDisabled,
-      'mr-2 md:mr-4': direction === 'left',
-      'ml-2 md:ml-4': direction === 'right',
+      'mr-7 md:mr-7': direction === 'left',
+      'ml-7 md:ml-7': direction === 'right',
     },
   );
 
   const icon =
     direction === 'left' ? (
-      <ArrowLeftIcon className="w-4" />
+      <ArrowLeftIcon className="w-4 " />
     ) : (
       <ArrowRightIcon className="w-4" />
     );
