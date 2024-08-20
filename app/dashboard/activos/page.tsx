@@ -1,6 +1,4 @@
-import { fetchActivosCount } from "@/api/activos.action";
-import { fetchTiposActivos } from "@/api/tipo_activo.action";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { fetchActivosCount } from "../../../api/activos.action";
 import Form from "@/ui/activos/create-form";
 import Pagination from "@/ui/activos/pagination";
 import TableActivos from "@/ui/activos/table";
@@ -24,12 +22,8 @@ export default async function Page({
   const currentPage = Number(searchParams?.page) || 1;
 
   const totalPages = await fetchActivosCount(query);
-  
+
   console.log(totalPages)
-
-
-
-
 
   return (
     <>

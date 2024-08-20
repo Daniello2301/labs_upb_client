@@ -1,8 +1,8 @@
 'use server';
 
-import { axiosInstance } from "../api/axios";
+import { axiosInstance } from "./axios";
 import { z } from "zod";
-import { AuthRequest, AuthResponse } from "@/lib/user-definitions";
+import { AuthRequest, AuthResponse } from "../lib/user-definitions";
 
 const SignUpSchema = z.object({
     id: z.number(),

@@ -3,10 +3,11 @@
 import React from "react";
 import { Button } from "../button";
 import clsx from "clsx";
+import { useUser } from "../../../hooks/useUser";
 
 function Form({}) {
 
-  console.log(localStorage.getItem("data"))
+  const { user } = useUser();
 
 
   return (
@@ -71,7 +72,7 @@ function Form({}) {
               id="tipo_activo"
               name="tipo_activo"
               className="peer block w-full rounded-md py-[9px] px-4 text-sm outline-0 bg-[#F5F6FB] text-gray-500/40 border-none"
-              defaultValue=""
+              defaultValue="Tipo de Activo"
               aria-describedby="tipo-activo"
             >
               <option value="" selected disabled>

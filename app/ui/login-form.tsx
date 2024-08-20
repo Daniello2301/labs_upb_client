@@ -1,41 +1,50 @@
-'use client';
+"use client";
 
 import { AtSymbolIcon, KeyIcon } from "@heroicons/react/24/outline";
 import { Button } from "./button";
-import { signInAPI } from "@/api/authentication.action";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Loader from "./loader";
 import clsx from "clsx";
-import useLocalStorage  from "@/hooks/useLocalStorage";
+import { useAuth } from "../../hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function Form() {
 
-  const [setData] = useLocalStorage("data", {});
+  const { login } = useAuth();
 
-  const router = useRouter();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     const dataForm = new FormData(e.currentTarget);
-    
-    const response = await signInAPI(dataForm);
-    console.log(response)
 
-    setLoading(false);
+    const creds = {
+      email: dataForm.get("email") as string,
+      password: dataForm.get("password") as string,
+    };
 
-    if(!response?.error){
-      const encodeData = btoa(JSON.stringify(response) ); 
-      setData(encodeData);
-      router.push("/dashboard");
-    }
-    
-    setError(response?.message);
-
+      login(creds)
+      .then((data) => {
+        console.log(data?.access_token);
+        if (data?.access_token) {
+          router.push("/dashboard");
+        } else {
+          console.log(data.message)
+          setError(data?.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -72,23 +81,21 @@ export default function Form() {
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500/40 " />
             </div>
           </div>
-          {
-            error && <p className="text-red-500 text-sm text-center">{error}</p>
-          }
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </div>
-          <div className="flex relativ">
-            
-                    {
-                      loading && <Loader />
-                    }
-           
-                    <Button type="submit" className={clsx(`mt-4 h-[40px] w-[160px] text-sm`, 
-                      { "block": !loading, "hidden": loading }
-                    )}>
-                      Iniciar Sesion
-                    </Button>
+        <div className="flex relativ">
+          {loading && <Loader />}
 
-          </div>
+          <Button
+            type="submit"
+            className={clsx(`mt-4 h-[40px] w-[160px] text-sm`, {
+              block: !loading,
+              hidden: loading,
+            })}
+          >
+            Iniciar Sesion
+          </Button>
+        </div>
       </div>
     </form>
   );

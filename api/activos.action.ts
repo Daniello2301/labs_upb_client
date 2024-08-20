@@ -1,10 +1,10 @@
 "use server"
 
-import { axiosInstance } from "../api/axios";
+import { axiosInstance } from "./axios";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { ActivoDataPage, ActivosTable } from "@/lib/activo-definitions";
+import { ActivoDataPage, ActivosTable } from "../lib/activo-definitions";
 
 
 const ActivoSchema = z.object({

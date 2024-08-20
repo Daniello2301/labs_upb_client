@@ -20,6 +20,11 @@ export type AuthResponse = {
     id: number;
     nombre: string;
     email: string;
-    accessToken: string;
-    refreshToken: string;
+    access_token: string;
+    refresh_token: string;
+    error?: {
+        message?: string;
+        status?: number;
+        error?: string;
+    };
 }
