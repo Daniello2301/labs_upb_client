@@ -4,6 +4,8 @@ import Pagination from "@/ui/activos/pagination";
 import TableActivos from "@/ui/activos/table";
 import Search from "@/ui/search";
 import { Metadata } from "next";
+import { fetchTiposActivos } from "../../../api/tipo_activo.action";
+import { fetchBloques } from "../../../api/bloque.action";
 
 
 export const metadata: Metadata = {
@@ -23,7 +25,8 @@ export default async function Page({
 
   const totalPages = await fetchActivosCount(query);
 
-  console.log(totalPages)
+  const tiposActivos = await fetchTiposActivos();
+  const bloques = await fetchBloques();
 
   return (
     <>
@@ -49,7 +52,7 @@ export default async function Page({
             </div>
           </section>
           <section className="flex justify-center w-full">
-            <Form />
+            <Form tiposActivos={tiposActivos} bloques={bloques} />
           </section>
         </div>
       </main>
