@@ -6,6 +6,7 @@ export default function DashboardLayout({
 }:{
     children: React.ReactNode;
 }) {
+
     return (
       <>
         <div className="relative flex min-h-screen h-screen">

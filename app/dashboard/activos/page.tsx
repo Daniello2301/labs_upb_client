@@ -1,37 +1,77 @@
+"use client";
+
 import { fetchActivosCount } from "../../../api/activos.action";
 import Form from "@/ui/activos/create-form";
 import Pagination from "@/ui/activos/pagination";
 import TableActivos from "@/ui/activos/table";
 import Search from "@/ui/search";
-import { Metadata } from "next";
 import { fetchTiposActivos } from "../../../api/tipo_activo.action";
 import { fetchBloques } from "../../../api/bloque.action";
+import { useEffect, useState } from "react";
+import useCookie from "../../../hooks/useCookies";
+import { useSearchParams } from "next/navigation";
+import { Activo } from "../../../lib/activo-definitions";
 
-
-export const metadata: Metadata = {
-  title: "Activos",
-};
-
-export default async function Page({
+export default function Page(/* {
   searchParams,
 }: {
   searchParams?: {
     query?: string;
     page?: string;
   };
-}) {
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+} */) {
 
-  const totalPages = await fetchActivosCount(query);
+  const searchParams = useSearchParams();
 
-  const tiposActivos = await fetchTiposActivos();
-  const bloques = await fetchBloques();
+  // Before
+  //const query = searchParams?.query || "";
+  // After
+  const query = searchParams.get("query") || "";
+
+  // Before
+  //const currentPage = Number(searchParams?.page) || 1;
+  // After
+  const currentPage = Number(searchParams.get("page")) || 1;
+
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [tiposActivos, setTiposActivos] = useState<any>([]);
+  const [bloques, setBloques] = useState<any>([]);
+  const [ refresh, setRefresh ] = useState<boolean>(false);
+
+  const [ activoSelected, setActivoSelected ] = useState<Activo>();
+
+  const { getCookie } = useCookie();
+  const user = JSON.parse(getCookie("user") || "{}");
+
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  }
+
+  const handleSelectedActivo = (activo: Activo) => {
+    setActivoSelected(activo);
+
+    if (activo) {
+      console.log("Activo seleccionado", activo);
+    }
+
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const totalPages = await fetchActivosCount(query);
+      setTotalPages(totalPages);
+      const tiposActivos = await fetchTiposActivos(user?.access_token);
+      setTiposActivos(tiposActivos);
+      const bloques = await fetchBloques();
+      setBloques(bloques);
+    };
+    fetchData();
+  }, [query, user?.access_token]);
 
   return (
     <>
       <span className="absolute h-3/5 w-[0.5px] bg-[#C8CBD9]/[.5] top-56 left-72"></span>
-      <span className="absolute h-3/5 w-[0.5px] bg-[#C8CBD9]/[.5] top-56 right-[24%]" />
       <main className="relative p-5 h-auto max-h-full">
         <h1 className="text-2xl text-blue-300 font-semibold ml-16 mb-5">
           Activos
@@ -44,15 +84,15 @@ export default async function Page({
             />
 
             {/* This is the table */}
-            <TableActivos query={query} currentPage={currentPage} />
+            <TableActivos query={query} currentPage={currentPage} refresh={refresh} onEditActivo={handleSelectedActivo} />
             {/* Pagination */}
 
             <div className="flex w-full items-center justify-center">
               <Pagination totalPages={totalPages} />
             </div>
           </section>
-          <section className="flex justify-center w-full">
-            <Form tiposActivos={tiposActivos} bloques={bloques} />
+          <section className="flex justify-center w-full flex-col">
+            <Form tiposActivos={tiposActivos} bloques={bloques} onNewActivo={handleRefresh} activoSelected={activoSelected} />
           </section>
         </div>
       </main>

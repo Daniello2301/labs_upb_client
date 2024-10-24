@@ -7,6 +7,7 @@ import Loader from "./loader";
 import clsx from "clsx";
 import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/navigation";
+import  useCookie  from "../../hooks/useCookies";
 
 export default function Form() {
 
@@ -18,6 +19,7 @@ export default function Form() {
 
   const router = useRouter();
 
+  const { setCookie } = useCookie();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,10 +31,11 @@ export default function Form() {
       password: dataForm.get("password") as string,
     };
 
-      login(creds)
+     await login(creds)
       .then((data) => {
         console.log(data?.access_token);
         if (data?.access_token) {
+          setCookie("token", data?.access_token);
           router.push("/dashboard");
         } else {
           console.log(data.message)

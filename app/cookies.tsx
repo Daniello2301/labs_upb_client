@@ -1,5 +1,14 @@
 import { CookiesProvider } from "next-client-cookies/server";
 
-export const ClientCookiesProvider: typeof CookiesProvider = (props) => (
-  <CookiesProvider {...props} />
-);
+interface Props{
+  children: React.ReactNode;
+  value: any;
+}
+
+export const ClientCookiesProvider = ({ children }: Props) => {
+  return (
+    <CookiesProvider>
+      {children}
+    </CookiesProvider>
+  );
+};

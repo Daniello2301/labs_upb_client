@@ -4,11 +4,15 @@ import Link from "next/link";
 import NavLinks from "@/ui/dashboard/nav-links";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import UPBLogo from "../logo";
+import useCookie from "../../../hooks/useCookies";
 
 export default function SideNav() {
 
+  const { removeCookie } = useCookie();
+
   const handleSignOut = () => {
     localStorage.removeItem("data");
+    removeCookie("token");
   }
 
   return (
